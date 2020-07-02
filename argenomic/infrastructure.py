@@ -40,7 +40,7 @@ class archive:
         self.cvt = KDTree(self.cvt_centers, metric='euclidean')
         self.elites = [elite(index, cvt_center) for index, cvt_center in enumerate(self.cvt_centers, start=0)]
         with open('{}/statistics.csv'.format(self.archive_name), 'w') as file:
-            file.write("## Argenomic Statistics File: {}".format(datetime.now()))
+            file.write("## Argenomic Statistics File: {} \n".format(datetime.now()))
             file.close()
         return None
 
@@ -95,7 +95,7 @@ class arbiter:
     Includes the option to run the structural filters from ChEMBL.
     """
     def __init__(self, arbiter_config) -> None:
-      self.rules_dict = pd.read_csv("../data/smarts/alert_collection.csv")
+      self.rules_dict = pd.read_csv("./data/smarts/alert_collection.csv")
       self.rules_dict= self.rules_dict[self.rules_dict.rule_set_name.isin(arbiter_config.rules)]
       self.rules_list = self.rules_dict["smarts"].values.tolist()
       self.tolerance_list = pd.to_numeric(self.rules_dict["max"]).values.tolist()

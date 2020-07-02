@@ -5,7 +5,7 @@ from argenomic.infrastructure import archive, arbiter
 
 @pytest.fixture
 def default_archive():
-    configuration_file = omegaconf.OmegaConf.load("./test_configurations/default_test_config.json")
+    configuration_file = omegaconf.OmegaConf.load("./test_config.json")
     '''
     Returns an archive instance of a 150 niches, spanned by ExactMolWt and MolLogP.
     '''
@@ -13,7 +13,7 @@ def default_archive():
 
 @pytest.fixture
 def default_arbiter():
-    configuration_file = omegaconf.OmegaConf.load("./test_configurations/default_test_config.json")
+    configuration_file = omegaconf.OmegaConf.load("./test_config.json")
     '''
     Returns an arbiter instance, initialised with GSK structural alerts.
     '''

@@ -8,12 +8,12 @@ def default_descriptor():
     '''
     Returns a descriptor instance, set-up to calculate normalised ExactMolWt and MolLogP.
     '''
-    configuration_file = omegaconf.OmegaConf.load("./test_configurations/default_test_config.json")
+    configuration_file = omegaconf.OmegaConf.load("./test_config.json")
     return descriptor(configuration_file.descriptor)
 
 @pytest.fixture
 def default_fitness():
-    configuration_file = omegaconf.OmegaConf.load("./test_configurations/default_test_config.json")
+    configuration_file = omegaconf.OmegaConf.load("./test_config.json")
     return fitness(configuration_file.fitness)
 
 @pytest.fixture
