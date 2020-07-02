@@ -30,7 +30,7 @@ conda env list
 
 ## Copyright License
 
-This project is licensed under the GNU General Public License v3 (GPLv3)".
+This project is licensed under the GNU General Public License v3 (GPLv3).
 
 ## Acknowledgments
 
