@@ -1,0 +1,21 @@
+{
+    "data_file":"../data/smiles/ZINC_first_1000.smi",
+    "batch_size":40,
+    "initial_size":150,
+    "archive":{
+        "name":"../results/test/default",
+        "size":150,
+        "accuracy":2500
+    },
+    "descriptor":{
+        "properties":["Descriptors.ExactMolWt", "Descriptors.MolLogP"],
+        "ranges":[[225.0, 555.0], [-0.5, 5.5]]
+    },
+    "fitness":{
+        "target":"Cc1c(C)c2OC(C)(COc3ccc(CC4SC(=O)NC4=O)cc3)CCc2c(C)c1O",
+        "type":"ECFP4"
+    },
+    "arbiter":{
+        "rules":["Glaxo"]
+    }
+}
