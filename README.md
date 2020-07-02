@@ -32,6 +32,15 @@ conda env list
 
 This project is licensed under the GNU General Public License v3 (GPLv3).
 
+## Dependencies
+
+Important dependencies of the Argenomic software environment and where to find the source.
+
+* [Python](https://www.python.org/) - Python is a widely used scientific and numeric programming language.
+* [RDKit](https://github.com/rdkit/rdkit) - Cheminformatics and machine-learning software toolkit.
+* [Scikit-learn](https://github.com/scikit-learn/scikit-learn) - Data science and deep learning toolset in Python.
+* [Omegaconf](https://github.com/omry/omegaconf) - Configuration system for multiple sources, providing a consistent API.
+
 ## Acknowledgments
 
 * Jan Jensen for his work in developing and open-sourcing a graph-based genetic algorithm for molecular optimisation, which served as impetus for this project.
