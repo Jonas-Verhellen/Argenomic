@@ -1,12 +1,11 @@
 # Argenomic
 Argenomic is  an open-source implementation of an illumination algorithm for optimization of small organic molecules.
 
-
 ## Getting Started
 
-To run the the argenomic software:
+To run the the argenomic software (rediscovery of Thiotixene):
 ```
-python3 main.py configuration_file= ./configuration/config.json generations= 100
+python3 illuminate.py configuration_file=./configuration/config.yaml generations=50
 ```
 
 ### Installing
@@ -23,6 +22,7 @@ Verify that the new environment was installed correctly:
 ```
 conda env list
 ```
+
 ## Authors
 
 * **Jonas Verhellen** - *Concept, implementation, and development*
