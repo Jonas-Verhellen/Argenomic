@@ -3,10 +3,11 @@ Argenomic is  an open-source implementation of an illumination algorithm for opt
 
 ## Getting Started
 
-To run the the argenomic software (rediscovery of Thiotixene):
+After installing the software and running the tests, argenomic can be called upon in the following manner:
 ```
 python3 illuminate.py configuration_file=./configuration/config.yaml generations=50
 ```
+(example: rediscovery of Thiotixene) 
 
 ### Installing
 
@@ -21,6 +22,14 @@ conda activate argenomic-stable
 Verify that the new environment was installed correctly:
 ```
 conda env list
+```
+
+### Running the tests
+
+To run the unit tests:
+
+```
+pytest ./tests
 ```
 
 ## Authors
