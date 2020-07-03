@@ -2,7 +2,7 @@
 # Argenomic
 
 [![GitHub issues](https://img.shields.io/github/issues/Jonas-Verhellen/argenomic)](https://github.com/Jonas-Verhellen/argenomic/issues)
-
+https://img.shields.io/github/license/Jonas-Verhellen/argenomic
 Argenomic is  an open-source implementation of an illumination algorithm for optimization of small organic molecules.
 
 ## Getting Started
