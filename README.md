@@ -28,10 +28,6 @@ conda env list
 * **Jonas Verhellen** - *Concept, implementation, and development*
 * **Jeriek Van den Abeele** - *implementation, and development*
 
-## Copyright License
-
-This project is licensed under the GNU General Public License v3 (GPLv3).
-
 ## Dependencies
 
 Important dependencies of the Argenomic software environment and where to find the source.
@@ -48,3 +44,7 @@ Important dependencies of the Argenomic software environment and where to find t
 * Jean-Baptiste Mouret and Jeff Clune for their breakthrough invention of illumination algorithms, providing a holistic view of high-performing solutions throughout a search space.  
 
 * Pat Walters for his scripts indicating how to run structural alerts using the RDKit and ChEMBL, and for his many enlightening medicinal chemistry blog posts.
+
+## Copyright License
+
+This project is licensed under the GNU General Public License v3 (GPLv3).
