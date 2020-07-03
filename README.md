@@ -1,19 +1,19 @@
-
-# Argenomic
+![Logo](/data/figures/logo.png "Logo")
 
 [![GitHub issues](https://img.shields.io/github/issues/Jonas-Verhellen/argenomic)](https://github.com/Jonas-Verhellen/argenomic/issues)
 [![Build Status](https://travis-ci.com/Jonas-Verhellen/argenomic.svg?branch=master)](https://travis-ci.com/Jonas-Verhellen/argenomic)
 
-Argenomic is an open-source implementation of an illumination algorithm for optimization of small organic molecules.
+## Description
+
+Argenomic is an open-source implementation of an illumination algorithm for optimization of small organic molecules. Argenomic provides a holistic overview of how high-performing molecules are distributed throughout a search space. This novel approach produces potent but qualitatively different molecules, illuminates the distribution of optimal solutions, and improves search efficiency compared to both machine learning and traditional genetic algorithm approaches. This implementation is based on an open-source, [graph-based genetic algorithm](https://github.com/jensengroup/GB-GA) for molecular optimisation, and influenced by state-of-the-art concepts from [soft robot design](https://github.com/resibots/pymap_elites).
 
 ## Getting Started
 
-After installing the software and running the tests, argenomic can be called upon in the following manner:
+After installing the software and running the tests, a basic usage example of argenomic (i.e. the rediscovery of Thiotixene) can be called upon in the following manner:
 ```
 python3 illuminate.py configuration_file=./configuration/config.yaml generations=50
 ```
-(rediscovery of Thiotixene) 
-
+ 
 ### Installing
 
 Download the source code from Github to your local machine and create the environment from the environment.yml file:
