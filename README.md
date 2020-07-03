@@ -7,7 +7,7 @@ After installing the software and running the tests, argenomic can be called upo
 ```
 python3 illuminate.py configuration_file=./configuration/config.yaml generations=50
 ```
-(example: rediscovery of Thiotixene) 
+(rediscovery of Thiotixene) 
 
 ### Installing
 
