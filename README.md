@@ -5,7 +5,13 @@
 
 ## Description
 
-Argenomic is an open-source implementation of an illumination algorithm for optimization of small organic molecules. Argenomic provides a holistic overview of how high-performing molecules are distributed throughout a search space. This novel approach produces potent but qualitatively different molecules, illuminates the distribution of optimal solutions, and improves search efficiency compared to both machine learning and traditional genetic algorithm approaches. This implementation is based on an open-source, [graph-based genetic algorithm](https://github.com/jensengroup/GB-GA) for molecular optimisation, and influenced by state-of-the-art concepts from [soft robot design](https://github.com/resibots/pymap_elites).
+Argenomic is an open-source implementation of an illumination algorithm for optimization of small organic molecules. Argenomic provides a holistic overview of how high-performing molecules are distributed throughout a search space. This novel approach produces potent but qualitatively different molecules, illuminates the distribution of optimal solutions, and improves search efficiency compared to both machine learning and traditional genetic algorithm approaches. This implementation is based on an open-source, [graph-based genetic algorithm](https://github.com/jensengroup/GB-GA) for molecular optimisation, and influenced by state-of-the-art concepts from [soft robot design](https://github.com/resibots/pymap_elites). For more information, see the accompanying [blog post](https://jonas-verhellen.github.io/posts/2020/07/argenomic/). 
+
+<p align="center">
+  <img src="https://github.com/Jonas-Verhellen/jonas-verhellen.github.io/blob/master/images/video.gif" />
+</p>
+
+*Example of iterative illumination in a 2D representation of chemical space. In this case the fitness is determined as the molecular similarity to Troglitazone.*
 
 ## Getting Started
 
