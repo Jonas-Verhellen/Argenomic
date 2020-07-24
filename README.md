@@ -17,7 +17,7 @@ Argenomic is an open-source implementation of an illumination algorithm for opti
 
 After installing the software and running the tests, a basic usage example of argenomic (i.e. the rediscovery of Thiotixene) can be called upon in the following manner:
 ```
-python3 illuminate.py configuration_file=./configuration/config.yaml generations=50
+python3 illuminate.py configuration_file=./configuration/config.yaml generations=100
 ```
 
 ### Installing

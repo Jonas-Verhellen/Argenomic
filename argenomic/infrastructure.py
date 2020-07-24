@@ -1,3 +1,4 @@
+import os
 import csv
 import random
 import itertools
@@ -15,6 +16,7 @@ from rdkit import rdBase
 from rdkit.Chem import AllChem
 rdBase.DisableLog('rdApp.error')
 from rdkit.Chem import Lipinski
+
 
 class elite():
     def __init__(self, index, descriptor):
@@ -34,11 +36,13 @@ class archive:
     def __init__(self, archive_config, descriptor_config) -> None:
         self.archive_name = archive_config.name
         self.archive_size = archive_config.size
-        kmeans = KMeans(n_clusters=self.archive_size, n_jobs=-1)
+        kmeans = KMeans(n_clusters=self.archive_size)
         kmeans = kmeans.fit(np.random.rand(archive_config.accuracy, len(descriptor_config.properties)))
         self.cvt_centers = kmeans.cluster_centers_
         self.cvt = KDTree(self.cvt_centers, metric='euclidean')
         self.elites = [elite(index, cvt_center) for index, cvt_center in enumerate(self.cvt_centers, start=0)]
+        if not os.path.isdir(self.archive_name):
+            os.mkdir(self.archive_name)
         with open('{}/statistics.csv'.format(self.archive_name), 'w') as file:
             file.write("## Argenomic Statistics File: {} \n".format(datetime.now()))
             file.close()
