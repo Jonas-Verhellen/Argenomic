@@ -53,9 +53,10 @@ class crossover:
         molecule_sidechains = []
         for molecule in molecule_pair:
             molecule_frags = rdMMPA.FragmentMol(molecule, maxCuts=1, resultsAsMols=False)
-            _, molecule_frags = map(list, zip(*molecule_frags))
-            for molecule_pair in molecule_frags:
-                core, sidechain = molecule_pair.split(".")
-                molecule_cores.append(Chem.MolFromSmiles(core.replace("[*:1]", "[1*]")))
-                molecule_sidechains.append(Chem.MolFromSmiles(sidechain.replace("[*:1]", "[1*]")))
+            if len(molecule_frags) > 0:
+                _, molecule_frags = map(list, zip(*molecule_frags))
+                for molecule_pair in molecule_frags:
+                    core, sidechain = molecule_pair.split(".")
+                    molecule_cores.append(Chem.MolFromSmiles(core.replace("[*:1]", "[1*]")))
+                    molecule_sidechains.append(Chem.MolFromSmiles(sidechain.replace("[*:1]", "[1*]")))
         return molecule_cores, molecule_sidechains
