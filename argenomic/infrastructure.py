@@ -34,7 +34,7 @@ class archive:
     def __init__(self, archive_config, descriptor_config) -> None:
         self.archive_name = archive_config.name
         self.archive_size = archive_config.size
-        kmeans = KMeans(n_clusters=self.archive_size, n_jobs=-1)
+        kmeans = KMeans(n_clusters=self.archive_size)
         kmeans = kmeans.fit(np.random.rand(archive_config.accuracy, len(descriptor_config.properties)))
         self.cvt_centers = kmeans.cluster_centers_
         self.cvt = KDTree(self.cvt_centers, metric='euclidean')
