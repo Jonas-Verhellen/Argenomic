@@ -9,6 +9,9 @@ from argenomic.operations import crossover, mutator
 from argenomic.mechanism import descriptor, fitness
 from argenomic.infrastructure import archive, arbiter
 
+from dask import bag
+from dask.distributed import Client, progress
+
 class illumination:
     def __init__(self, config: omegaconf.DictConfig) -> None:
         self.data_file = config.data_file
@@ -21,6 +24,8 @@ class illumination:
         self.descriptor = descriptor(config.descriptor)
         self.archive = archive(config.archive, config.descriptor)
         self.fitness = fitness(config.fitness)
+
+        self.client = Client(n_workers=2, threads_per_worker=1)
         return None
 
     def __call__(self, generations: int) -> None:
@@ -54,11 +59,11 @@ class illumination:
         return molecules
 
     def process_molecules(self, molecules: List[Chem.Mol]) -> Tuple[List[List[float]],List[float]]:
-        descriptors = list(map(self.descriptor, molecules))
+        descriptors = bag.map(self.descriptor, bag.from_sequence(molecules)).compute()
         molecules, descriptors = zip(*[(molecule, descriptor) for molecule, descriptor in zip(molecules, descriptors)\
                 if all(1.0 > property > 0.0 for property in descriptor)])
         molecules, descriptors = list(molecules), list(descriptors)
-        fitnesses = list(map(self.fitness, molecules))
+        fitnesses = bag.map(self.fitness, bag.from_sequence(molecules)).compute()
         return molecules, descriptors, fitnesses
 
     @staticmethod
