@@ -63,7 +63,7 @@ class illumination:
         molecules, descriptors = zip(*[(molecule, descriptor) for molecule, descriptor in zip(molecules, descriptors)\
                 if all(1.0 > property > 0.0 for property in descriptor)])
         molecules, descriptors = list(molecules), list(descriptors)
-        fitnesses = bag.map(self.fitness, bag.from_sequence(molecules))
+        fitnesses = bag.map(self.fitness, bag.from_sequence(molecules)).compute()
         return molecules, descriptors, fitnesses
 
     @staticmethod
