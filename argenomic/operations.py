@@ -1,3 +1,4 @@
+import hydra
 import random
 import logging
 import numpy as np
@@ -17,7 +18,7 @@ class mutator:
     according to the principles of positional analogue scanning.
     """
     def __init__(self) -> None:
-        self.mutation_data = pd.read_csv("./data/smarts/mutation_collection.tsv", sep='\t')
+        self.mutation_data = pd.read_csv(hydra.utils.to_absolute_path("data/smarts/mutation_collection.tsv"), sep='\t')
 
     def __call__(self, molecule:Chem.Mol) -> List[Chem.Mol]:
         sampled_mutation = self.mutation_data.sample(n=1, weights='probability').iloc[0]
