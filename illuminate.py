@@ -1,3 +1,4 @@
+import hydra
 import omegaconf
 import pandas as pd
 from typing import List, Tuple
@@ -12,6 +13,7 @@ from argenomic.infrastructure import archive, arbiter
 from dask import bag
 from dask.distributed import Client, progress
 
+@hydra.main(config_path="./configuration/config.yaml")
 class illumination:
     def __init__(self, config: omegaconf.DictConfig) -> None:
         self.data_file = config.data_file
@@ -25,7 +27,7 @@ class illumination:
         self.archive = archive(config.archive, config.descriptor)
         self.fitness = fitness(config.fitness)
 
-        self.client = Client(n_workers=2, threads_per_worker=1)
+        self.client = Client(n_workers=config.workers, threads_per_worker=config.threads)
         return None
 
     def __call__(self, generations: int) -> None:
@@ -75,5 +77,4 @@ class illumination:
         return molecule_dataframe['molecules']
 
 if __name__ == "__main__":
-    configuration = omegaconf.OmegaConf.from_cli()
-    illumination(omegaconf.OmegaConf.load(configuration.configuration_file))(configuration.generations)
+    illumination()()
