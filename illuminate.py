@@ -1,5 +1,4 @@
 import hydra
-import omegaconf
 import pandas as pd
 from typing import List, Tuple
 
@@ -14,7 +13,7 @@ from argenomic.mechanism import descriptor, fitness
 from argenomic.infrastructure import archive, arbiter
 
 class illumination:
-    def __init__(self, config: omegaconf.DictConfig) -> None:
+    def __init__(self, config) -> None:
         self.data_file = config.data_file
         self.batch_size = config.batch_size
         self.initial_size = config.initial_size
@@ -78,7 +77,7 @@ class illumination:
 
 
 @hydra.main(config_path="configuration", config_name="config.yaml")
-def launch(config: omegaconf.DictConfig) -> None:
+def launch(config) -> None:
     print(config.pretty())
     current_instance = illumination(config)
     current_instance()
