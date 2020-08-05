@@ -1,22 +1,23 @@
-import omegaconf
+import hydra
 import pandas as pd
 from typing import List, Tuple
 
 from rdkit import Chem
 from rdkit.Chem import PandasTools as pdtl
 
+from dask import bag
+from dask.distributed import Client
+
 from argenomic.operations import crossover, mutator
 from argenomic.mechanism import descriptor, fitness
 from argenomic.infrastructure import archive, arbiter
 
-from dask import bag
-from dask.distributed import Client, progress
-
 class illumination:
-    def __init__(self, config: omegaconf.DictConfig) -> None:
+    def __init__(self, config) -> None:
         self.data_file = config.data_file
         self.batch_size = config.batch_size
         self.initial_size = config.initial_size
+        self.generations = config.generations
 
         self.mutator = mutator()
         self.crossover = crossover()
@@ -25,12 +26,12 @@ class illumination:
         self.archive = archive(config.archive, config.descriptor)
         self.fitness = fitness(config.fitness)
 
-        self.client = Client(n_workers=2, threads_per_worker=1)
+        self.client = Client(n_workers=config.workers, threads_per_worker=config.threads)
         return None
 
-    def __call__(self, generations: int) -> None:
+    def __call__(self) -> None:
         self.initial_population()
-        for generation in range(generations):
+        for generation in range(self.generations):
             molecules = self.generate_molecules()
             molecules, descriptors, fitnesses = self.process_molecules(molecules)
             self.archive.add_to_archive(molecules, descriptors, fitnesses)
@@ -39,7 +40,7 @@ class illumination:
         return None
 
     def initial_population(self) -> None:
-        dataframe = pd.read_csv(self.data_file)
+        dataframe = pd.read_csv(hydra.utils.to_absolute_path(self.data_file))
         pdtl.AddMoleculeColumnToFrame(dataframe, 'smiles', 'molecule')
         molecules = dataframe['molecule'].sample(n=self.initial_size).tolist()
         molecules = self.arbiter(self.unique_molecules(molecules))
@@ -74,6 +75,13 @@ class illumination:
         molecule_dataframe.drop_duplicates('smiles', inplace = True)
         return molecule_dataframe['molecules']
 
+
+@hydra.main(config_path="configuration", config_name="config.yaml")
+def launch(config) -> None:
+    print(config.pretty())
+    current_instance = illumination(config)
+    current_instance()
+    current_instance.client.close()
+
 if __name__ == "__main__":
-    configuration = omegaconf.OmegaConf.from_cli()
-    illumination(omegaconf.OmegaConf.load(configuration.configuration_file))(configuration.generations)
+    launch()

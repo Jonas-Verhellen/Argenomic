@@ -5,7 +5,7 @@
 
 ## Description
 
-Argenomic is an open-source implementation of an illumination algorithm for optimization of small organic molecules. Argenomic provides a holistic overview of how high-performing molecules are distributed throughout a search space. This novel approach produces potent but qualitatively different molecules, illuminates the distribution of optimal solutions, and improves search efficiency compared to both machine learning and traditional genetic algorithm approaches. This implementation is based on an open-source, [graph-based genetic algorithm](https://github.com/jensengroup/GB-GA) for molecular optimisation, and influenced by state-of-the-art concepts from [soft robot design](https://github.com/resibots/pymap_elites). For more information, see the accompanying [blog post](https://jonas-verhellen.github.io/posts/2020/07/argenomic/). 
+Argenomic is an open-source implementation of an illumination algorithm for optimization of small organic molecules. Argenomic provides a holistic overview of how high-performing molecules are distributed throughout a search space. This novel approach produces potent but qualitatively different molecules, illuminates the distribution of optimal solutions, and improves search efficiency compared to both machine learning and traditional genetic algorithm approaches. This implementation is based on an open-source, [graph-based genetic algorithm](https://github.com/jensengroup/GB-GA) for molecular optimisation, and influenced by state-of-the-art concepts from [soft robot design](https://github.com/resibots/pymap_elites). For more information, see the accompanying [blog post](https://jonas-verhellen.github.io/posts/2020/07/argenomic/).
 
 <p align="center">
   <img src="https://github.com/Jonas-Verhellen/jonas-verhellen.github.io/blob/master/images/video.gif" />
@@ -17,7 +17,7 @@ Argenomic is an open-source implementation of an illumination algorithm for opti
 
 After installing the software and running the tests, a basic usage example of argenomic (i.e. the rediscovery of Thiotixene) can be called upon in the following manner:
 ```
-python3 illuminate.py configuration_file=./configuration/config.yaml generations=100
+python3 illuminate.py generations=100
 ```
 
 ### Installing
