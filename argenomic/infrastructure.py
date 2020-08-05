@@ -36,13 +36,19 @@ class elite():
 class archive:
     def __init__(self, archive_config, descriptor_config) -> None:
         self.archive_size = archive_config.size
-        kmeans = KMeans(n_clusters=self.archive_size)
-        kmeans = kmeans.fit(np.random.rand(archive_config.accuracy, len(descriptor_config.properties)))
-        self.cvt_centers = kmeans.cluster_centers_
+        self.archive_accuracy = archive_config.accuracy
+        self.archive_dimensions = len(descriptor_config.properties)
+        self.cache_string = "cache_{}_{}.csv".format(self.archive_dimensions, self.archive_accuracy)
+        self.cvt_location = hydra.utils.to_absolute_path("data/cvt/" + self.cache_string)
+        if os.path.isfile(self.cvt_location):
+            self.cvt_centers = np.loadtxt(self.cvt_location)
+        else:
+            kmeans = KMeans(n_clusters=self.archive_size)
+            kmeans = kmeans.fit(np.random.rand(archive_config.accuracy, self.archive_dimensions))
+            self.cvt_centers = kmeans.cluster_centers_
+            np.savetxt(self.cvt_location, self.cvt_centers)
         self.cvt = KDTree(self.cvt_centers, metric='euclidean')
         self.elites = [elite(index, cvt_center) for index, cvt_center in enumerate(self.cvt_centers, start=0)]
-        with open('statistics.csv', 'w') as file:
-            file.close()
         return None
 
     def cvt_index(self, descriptor: List[float]) -> int:
@@ -76,8 +82,13 @@ class archive:
         elites_smiles, elites_descriptors, elites_fitnesses = self.elites_data()
         fractional_size = len(elites_smiles)/self.archive_size
         statistics = [generation, np.max(elites_fitnesses), np.mean(elites_fitnesses), np.std(elites_fitnesses), fractional_size]
-        with open('statistics.csv', 'a') as file:
-            csv.writer(file).writerow(statistics)
+        if os.path.isfile('statistics.csv'):
+            with open('statistics.csv', 'a') as file:
+                csv.writer(file).writerow(statistics)
+                file.close()
+        else:
+            with open('statistics.csv', 'w') as file:
+                file.close()
         print('Generation: {}, Size: {:.2f}'.format(statistics[0], statistics[4]))
         print('Fitness Max: {:.7f}, Mean: {:.7f}, Std: {:.7f}'.format(statistics[1], statistics[2], statistics[3]))
         return None
