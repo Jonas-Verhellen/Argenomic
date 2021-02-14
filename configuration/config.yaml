@@ -25,9 +25,11 @@ descriptor:
   - - 40
     - 130
 fitness:
-  target: CN(C)S(=O)(=O)c1ccc2Sc3ccccc3C(=CCCN4CCN(C)CC4)c2c1
+  target: O=S(=O)(N(C)C)c2cc1C(\c3c(Sc1cc2)cccc3)=C/CCN4CCN(C)CC4
   type: ECFP4
 arbiter:
   rules:
   - Glaxo
+mutator:
+  data_file: data/smarts/mutation_collection.tsv
 
