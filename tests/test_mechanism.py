@@ -1,7 +1,7 @@
 import pytest
 import omegaconf
 from rdkit import Chem
-from argenomic.mechanism import descriptor, fitness
+from argenomic.mechanism import Descriptor, Fitness
 
 @pytest.fixture
 def default_descriptor():
@@ -9,12 +9,12 @@ def default_descriptor():
     Returns a descriptor instance, set-up to calculate normalised ExactMolWt and MolLogP.
     '''
     configuration_file = omegaconf.OmegaConf.load("./tests/test_config.yaml")
-    return descriptor(configuration_file.descriptor)
+    return Descriptor(configuration_file.descriptor)
 
 @pytest.fixture
 def default_fitness():
     configuration_file = omegaconf.OmegaConf.load("./tests/test_config.yaml")
-    return fitness(configuration_file.fitness)
+    return Fitness(configuration_file.fitness)
 
 @pytest.fixture
 def default_molecules():

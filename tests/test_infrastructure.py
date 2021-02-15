@@ -1,7 +1,7 @@
 import pytest
 import omegaconf
 from rdkit import Chem
-from argenomic.infrastructure import archive, arbiter
+from argenomic.infrastructure import Archive, Arbiter
 
 @pytest.fixture
 def default_archive():
@@ -9,7 +9,7 @@ def default_archive():
     '''
     Returns an archive instance of a 150 niches, spanned by ExactMolWt and MolLogP.
     '''
-    return archive(configuration_file.archive, configuration_file.descriptor)
+    return Archive(configuration_file.archive, configuration_file.descriptor)
 
 @pytest.fixture
 def default_arbiter():
@@ -17,7 +17,7 @@ def default_arbiter():
     '''
     Returns an arbiter instance, initialised with GSK structural alerts.
     '''
-    return arbiter(configuration_file.arbiter)
+    return Arbiter(configuration_file.arbiter)
 
 @pytest.fixture
 def default_molecules():

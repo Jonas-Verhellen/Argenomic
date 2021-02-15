@@ -1,21 +1,21 @@
 import pytest
 import omegaconf
 from rdkit import Chem
-from argenomic.operations import mutator, crossover
+from argenomic.operations import Mutator, Crossover
 
 @pytest.fixture
 def default_mutator():
     '''
     Returns an instance of a mutator.
     '''
-    return mutator()
+    return Mutator()
 
 @pytest.fixture
 def default_crossover():
     '''
     Returns an instance of a crossover.
     '''
-    return crossover()
+    return Crossover()
 
 @pytest.fixture
 def default_molecules():
