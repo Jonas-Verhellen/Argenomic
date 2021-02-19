@@ -16,7 +16,7 @@ from sklearn.neighbors import KDTree
 from rdkit import Chem
 from rdkit import rdBase
 from rdkit.Chem import AllChem
-rdBase.DisableLog('rdAmoleculespp.error')
+rdBase.DisableLog('rdApp.error')
 from rdkit.Chem import Lipinski
 
 from argenomic.base import Molecule, Elite
@@ -107,7 +107,7 @@ class Archive:
         elites_pedigree = [molecule.pedigree for molecule in elite_molecules]
         elites_descriptors = [molecule.descriptor for molecule in elite_molecules]
         elites_fitnesses = [molecule.fitness for molecule in elite_molecules]
-        archive_data = {'index': elites_smiles, 'smiles': elites_smiles, 'pedigree': elites_pedigree, 'descriptors': elites_descriptors, 'fitnesses': elites_fitnesses}
+        archive_data = {'index': elite_indices, 'smiles': elites_smiles, 'pedigree': elites_pedigree, 'descriptors': elites_descriptors, 'fitnesses': elites_fitnesses}
         return archive_data
 
 class Arbiter:

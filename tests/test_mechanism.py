@@ -2,6 +2,7 @@ import pytest
 import omegaconf
 from rdkit import Chem
 from argenomic.mechanism import Descriptor, Fitness
+from argenomic.base import Molecule
 
 @pytest.fixture
 def default_descriptor():
@@ -18,21 +19,21 @@ def default_fitness():
 
 @pytest.fixture
 def default_molecules():
-    '''
-    Returns a list of two molecules.
-    '''
-    smiles = ["Clc1ccc(cc1)C(c2ccccc2)N3CCN(CC3)CCOCC(=O)O", "CC1=CC(Cl)=CC(C(=O)N[C@@H]2C[C@@H]3CCCC[C@@H]32)=C1C"]
-    molecules = [Chem.MolFromSmiles(individual_smiles) for individual_smiles in smiles]
+    smiles_list = ["Clc1ccc(cc1)C(c2ccccc2)N3CCN(CC3)CCOCC(=O)O", "CC1=CC(Cl)=CC(C(=O)N[C@@H]2C[C@@H]3CCCC[C@@H]32)=C1C"]
+    pedigree = ("database", "no reaction", "no parent")   
+    molecules = [Molecule(Chem.CanonSmiles(smiles), pedigree) for smiles in smiles_list]
     return molecules
 
 def test_default_descriptor(default_descriptor, default_molecules):
-    descriptors = default_descriptor(default_molecules)
-    for descriptor in descriptors:
-        assert 0.00 <= descriptor
-        assert descriptor <= 1.00
+    for molecule in default_molecules:
+        molecule = default_descriptor(molecule)
+        for descriptor in molecule.descriptors:
+            assert 0.00 <= descriptor
+            assert descriptor <= 1.00
+    
 
 def test_default_descriptor(default_fitness, default_molecules):
     for molecule in default_molecules:
-        fitness = default_fitness(molecule)
-        assert 0.00 <= fitness
-        assert fitness <= 1.00
+        molecule = default_fitness(molecule)
+        assert 0.00 <= molecule.fitness
+        assert molecule.fitness <= 1.00
