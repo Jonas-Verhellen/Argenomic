@@ -15,7 +15,7 @@ Argenomic is an open-source implementation of an illumination algorithm for opti
 
 ## Getting Started
 
-After installing the software and running the tests, a basic usage example of argenomic (i.e. the rediscovery of Thiotixene) can be called upon in the following manner:
+After installing the software and running the tests, a basic usage example of argenomic (i.e. the rediscovery of Celecoxib) can be called upon in the following manner:
 ```
 python3 illuminate.py generations=100
 ```
@@ -61,7 +61,7 @@ Important dependencies of the Argenomic software environment and where to find t
 
 * Jan Jensen for his work in developing and open-sourcing a graph-based genetic algorithm for molecular optimisation, which served as impetus for this project.
 
-* Jean-Baptiste Mouret and Jeff Clune for their breakthrough invention of illumination algorithms, providing a holistic view of high-performing solutions throughout a search space.  
+* Jean-Baptiste Mouret and Jeff Clune for their breakthrough invention of illumination algorithms, providing a holistic view of high-performing solutions throughout a search space.
 
 * Pat Walters for his scripts indicating how to run structural alerts using the RDKit and ChEMBL, and for his many enlightening medicinal chemistry blog posts.
 

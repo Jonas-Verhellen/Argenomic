@@ -68,7 +68,7 @@ class Archive:
         molecules, weights = map(list, zip(*pairs))
         return random.choices(molecules, k=size, weights=weights)
 
-    def sample_pairs(self, size: int) -> List[Tuple[Chem.Mol, Chem.Mol]]:
+    def sample_pairs(self, size: int, generation: float) -> List[Tuple[Chem.Mol, Chem.Mol]]:
         """
         Returns a list of pairs of elite molecules of the requisted length. 
         The elite molecules are randomly drawn, weighted by their fitness. 
@@ -77,7 +77,7 @@ class Archive:
         molecules, weights = map(list, zip(*pairs))
         sample_molecules = random.choices(molecules, k=size, weights=weights)
         sample_pairs = np.random.choice(list(filter(None, sample_molecules)), size=(size, 2), replace=True)
-        sample_pairs = [tuple(sample_pair) for sample_pair in sample_pairs]
+        sample_pairs = [tuple(sample_pair) for sample_pair in sample_pairs]       
         return sample_pairs
 
     def store_data(self, generation: float) -> None:
