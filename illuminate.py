@@ -34,7 +34,7 @@ class Illuminate:
     def __call__(self) -> None:
         self.initial_population()
         for generation in range(1, self.generations):
-            molecules = self.generate_molecules(generation)
+            molecules = self.generate_molecules()
             molecules = self.process_molecules(molecules)
             self.archive.add_to_archive(molecules)
             self.archive.store_data(generation)
@@ -55,10 +55,10 @@ class Illuminate:
         molecules = [Molecule(Chem.CanonSmiles(smiles), pedigree) for smiles in smiles_list]
         return molecules
 
-    def generate_molecules(self, generation) -> List[Molecule]:
+    def generate_molecules(self) -> List[Molecule]:
         molecules = []
         molecule_samples = self.archive.sample(self.batch_size)
-        molecule_sample_pairs = self.archive.sample_pairs(self.batch_size, generation)
+        molecule_sample_pairs = self.archive.sample_pairs(self.batch_size)
         for molecule in molecule_samples:
             molecules.extend(self.mutator(molecule)) 
         for molecule_pair in molecule_sample_pairs:

@@ -15,7 +15,7 @@ Argenomic is an open-source implementation of an illumination algorithm for opti
 
 ## Getting Started
 
-After installing the software and running the tests, a basic usage example of argenomic (i.e. the rediscovery of Celecoxib) can be called upon in the following manner:
+After installing the software and running the tests, a basic usage example of argenomic (i.e. the rediscovery of Troglitazone) can be called upon in the following manner:
 ```
 python3 illuminate.py generations=100
 ```
