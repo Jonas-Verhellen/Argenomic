@@ -77,6 +77,7 @@ dependencies:
   - python-dateutil=2.8.1=py_0
   - python_abi=3.7=1_cp37m
   - pytz=2020.1=py_0
+  - pyyaml=5.3.1=py37h7b6447c_1
   - rdkit=2020.03.3=py37hdd87690_0
   - readline=8.0=h7b6447c_0
   - scikit-learn=0.23.1=py37h423224d_0
@@ -115,6 +116,4 @@ dependencies:
     - hydra-core==1.0.0rc2
     - importlib-resources==3.0.0
     - omegaconf==2.0.1rc11
-    - pyyaml==5.3.1
-prefix: /home/jonas/anaconda3/envs/argenomic-stable
-
+prefix: /home/jonasver/anaconda3/envs/argenomic-stable

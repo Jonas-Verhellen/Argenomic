@@ -1,5 +1,5 @@
 ---
-data_file: data/smiles/guacamol_initial_rediscovery_thiotixene.smi
+data_file: data/smiles/guacamol_intitial_rediscovery_troglitazone.smi
 batch_size: 40
 initial_size: 100
 workers: 1
@@ -25,9 +25,11 @@ descriptor:
   - - 40
     - 130
 fitness:
-  target: CN(C)S(=O)(=O)c1ccc2Sc3ccccc3C(=CCCN4CCN(C)CC4)c2c1
+  target: "O=C1NC(=O)SC1Cc4ccc(OCC3(Oc2c(c(c(O)c(c2CC3)C)C)C)C)cc4"
   type: ECFP4
 arbiter:
   rules:
   - Glaxo
+mutator:
+  data_file: data/smarts/mutation_collection.tsv
 

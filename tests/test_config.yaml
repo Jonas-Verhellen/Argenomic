@@ -21,4 +21,5 @@ fitness:
 arbiter:
   rules:
   - Glaxo
-
+mutator:
+  data_file: data/smarts/mutation_collection.tsv

@@ -1,6 +1,7 @@
 import hydra
+import numpy as np
 import pandas as pd
-from typing import List, Tuple
+from typing import List, Tuple, Type
 
 from rdkit import Chem
 from rdkit.Chem import PandasTools as pdtl
@@ -8,78 +9,81 @@ from rdkit.Chem import PandasTools as pdtl
 from dask import bag
 from dask.distributed import Client
 
-from argenomic.operations import crossover, mutator
-from argenomic.mechanism import descriptor, fitness
-from argenomic.infrastructure import archive, arbiter
+from argenomic.base import Molecule
+from argenomic.operations import Mutator, Crossover
+from argenomic.infrastructure import Arbiter, Archive
+from argenomic.mechanism import Fitness, Descriptor
 
-class illumination:
+class Illuminate:
     def __init__(self, config) -> None:
         self.data_file = config.data_file
+        self.generations = config.generations
         self.batch_size = config.batch_size
         self.initial_size = config.initial_size
-        self.generations = config.generations
 
-        self.mutator = mutator()
-        self.crossover = crossover()
-        self.arbiter = arbiter(config.arbiter)
-        self.descriptor = descriptor(config.descriptor)
-        self.archive = archive(config.archive, config.descriptor)
-        self.fitness = fitness(config.fitness)
+        self.arbiter = Arbiter(config.arbiter)
+        self.fitness = Fitness(config.fitness)
+        self.mutator = Mutator(config.mutator)
+        self.crossover = Crossover()
+        self.descriptor = Descriptor(config.descriptor)
+        self.archive = Archive(config.archive, config.descriptor)
 
         self.client = Client(n_workers=config.workers, threads_per_worker=config.threads)
         return None
 
     def __call__(self) -> None:
         self.initial_population()
-        for generation in range(self.generations):
+        for generation in range(1, self.generations):
             molecules = self.generate_molecules()
-            molecules, descriptors, fitnesses = self.process_molecules(molecules)
-            self.archive.add_to_archive(molecules, descriptors, fitnesses)
-            self.archive.store_statistics(generation)
-            self.archive.store_archive(generation)
+            molecules = self.process_molecules(molecules)
+            self.archive.add_to_archive(molecules)
+            self.archive.store_data(generation)
         return None
 
     def initial_population(self) -> None:
-        dataframe = pd.read_csv(hydra.utils.to_absolute_path(self.data_file))
-        pdtl.AddMoleculeColumnToFrame(dataframe, 'smiles', 'molecule')
-        molecules = dataframe['molecule'].sample(n=self.initial_size).tolist()
-        molecules = self.arbiter(self.unique_molecules(molecules))
-        molecules, descriptors, fitnesses = self.process_molecules(molecules)
-        self.archive.add_to_archive(molecules, descriptors, fitnesses)
+        molecules = self.arbiter(self.load_from_database())
+        molecules = self.calculate_descriptors(molecules)
+        molecules = self.calculate_fitnesses(molecules)
+        self.archive.add_to_archive(molecules)
+        self.archive.store_data(0)
         return None
 
-    def generate_molecules(self) -> None:
-        molecules = []
-        sample_molecules = self.archive.sample(self.batch_size)
-        sample_molecule_pairs = self.archive.sample_pairs(self.batch_size)
-        for molecule in sample_molecules:
-            molecules.extend(self.mutator(molecule))
-        for molecule_pair in sample_molecule_pairs:
-            molecules.extend(self.crossover(molecule_pair))
-        molecules = self.arbiter(self.unique_molecules(molecules))
+    def load_from_database(self) -> List[Molecule]:
+        dataframe = pd.read_csv(hydra.utils.to_absolute_path(self.data_file))
+        smiles_list = dataframe['smiles'].sample(n=self.initial_size).tolist()
+        pedigree = ("database", "no reaction", "no parent")   
+        molecules = [Molecule(Chem.CanonSmiles(smiles), pedigree) for smiles in smiles_list]
         return molecules
 
-    def process_molecules(self, molecules: List[Chem.Mol]) -> Tuple[List[List[float]],List[float]]:
-        descriptors = bag.map(self.descriptor, bag.from_sequence(molecules)).compute()
-        molecules, descriptors = zip(*[(molecule, descriptor) for molecule, descriptor in zip(molecules, descriptors)\
-                if all(1.0 > property > 0.0 for property in descriptor)])
-        molecules, descriptors = list(molecules), list(descriptors)
-        fitnesses = bag.map(self.fitness, bag.from_sequence(molecules)).compute()
-        return molecules, descriptors, fitnesses
+    def generate_molecules(self) -> List[Molecule]:
+        molecules = []
+        molecule_samples = self.archive.sample(self.batch_size)
+        molecule_sample_pairs = self.archive.sample_pairs(self.batch_size)
+        for molecule in molecule_samples:
+            molecules.extend(self.mutator(molecule)) 
+        for molecule_pair in molecule_sample_pairs:
+            molecules.extend(self.crossover(molecule_pair)) 
+        return molecules
 
-    @staticmethod
-    def unique_molecules(molecules: List[Chem.Mol]) -> List[Chem.Mol]:
-        molecules = [Chem.MolFromSmiles(Chem.MolToSmiles(molecule)) for molecule in molecules if molecule is not None]
-        molecule_records = [(molecule, Chem.MolToSmiles(molecule)) for molecule in molecules if molecule is not None]
-        molecule_dataframe = pd.DataFrame(molecule_records, columns = ['molecules', 'smiles'])
-        molecule_dataframe.drop_duplicates('smiles', inplace = True)
-        return molecule_dataframe['molecules']
+    def process_molecules(self, molecules: List[Molecule]) -> List[Molecule]:
+        molecules = self.arbiter(molecules)
+        molecules = self.calculate_descriptors(molecules)
+        molecules = self.calculate_fitnesses(molecules)
+        return molecules
 
+    def calculate_fitnesses(self, molecules: List[Molecule]) -> List[Molecule]:
+        molecules = bag.map(self.fitness, bag.from_sequence(molecules)).compute()
+        return molecules
+
+    def calculate_descriptors(self, molecules: List[Molecule]) -> List[Molecule]:
+        molecules = bag.map(self.descriptor, bag.from_sequence(molecules)).compute()
+        molecules = [molecule for molecule in molecules if all(1.0 > property > 0.0 for property in molecule.descriptor)]
+        return molecules
 
 @hydra.main(config_path="configuration", config_name="config.yaml")
 def launch(config) -> None:
     print(config.pretty())
-    current_instance = illumination(config)
+    current_instance = Illuminate(config)
     current_instance()
     current_instance.client.close()
 
