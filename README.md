@@ -1,14 +1,21 @@
-![Logo](/data/figures/logo.png "Logo")
+<div align="center">    
+ 
+# Quality-Diversity Optimisation for Molecular Design
+   ![Logo](/data/figures/logo.png "Logo")
+
+</div>
 
 [![GitHub issues](https://img.shields.io/github/issues/Jonas-Verhellen/argenomic)](https://github.com/Jonas-Verhellen/argenomic/issues)
-[![Build Status](https://travis-ci.com/Jonas-Verhellen/argenomic.svg?branch=master)](https://travis-ci.com/Jonas-Verhellen/argenomic)
+![GitHub](https://img.shields.io/github/license/Jonas-Verhellen/Argenomic)
+[![DOI](https://img.shields.io/badge/DOI-10.1039/D0SC03544K-blue)](https://pubs.rsc.org/en/content/articlehtml/2020/sc/d0sc03544k)
+
 
 ## Description
 
 Argenomic is an open-source implementation of an illumination algorithm for optimization of small organic molecules. Argenomic provides a holistic overview of how high-performing molecules are distributed throughout a search space. This novel approach produces potent but qualitatively different molecules, illuminates the distribution of optimal solutions, and improves search efficiency compared to both machine learning and traditional genetic algorithm approaches. This implementation is based on an open-source, [graph-based genetic algorithm](https://github.com/jensengroup/GB-GA) for molecular optimisation, and influenced by state-of-the-art concepts from [soft robot design](https://github.com/resibots/pymap_elites). For more information, see the accompanying [blog post](https://jonas-verhellen.github.io/posts/2020/07/argenomic/).
 
 <p align="center">
-  <img src="https://github.com/Jonas-Verhellen/jonas-verhellen.github.io/blob/master/images/video.gif" />
+  <img src="https://github.com/Jonas-Verhellen/jonas-verhellen.github.io/blob/main/images/video.gif"/>
 </p>
 
 *Example of iterative illumination in a 2D representation of chemical space. In this case the fitness is determined as the molecular similarity to Troglitazone.*
