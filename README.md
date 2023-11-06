@@ -1,7 +1,13 @@
-![Logo](/data/figures/logo.png "Logo")
+<div align="center">    
+ 
+# Quality-Diversity Optimisation for Molecular Design
+   
+</div>
 
 [![GitHub issues](https://img.shields.io/github/issues/Jonas-Verhellen/argenomic)](https://github.com/Jonas-Verhellen/argenomic/issues)
-[![Build Status](https://travis-ci.com/Jonas-Verhellen/argenomic.svg?branch=master)](https://travis-ci.com/Jonas-Verhellen/argenomic)
+![GitHub](https://img.shields.io/github/license/Jonas-Verhellen/Argenomic)
+[![DOI](https://img.shields.io/badge/DOI-10.1039/D0SC03544K-blue)](https://pubs.rsc.org/en/content/articlehtml/2020/sc/d0sc03544k)
+
 
 ## Description
 
