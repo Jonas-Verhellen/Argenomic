@@ -51,7 +51,7 @@ pytest ./tests
 ```
 
 ## Authors
-
+Based on the paper *[Illuminating elite patches of chemical space.](https://pubs.rsc.org/en/content/articlehtml/2020/sc/d0sc03544k) Chemical science 11.42 (2020): 11485-11491.*
 * **Jonas Verhellen** - *Concept, implementation, and development*
 * **Jeriek Van den Abeele** - *implementation, and development*
 
