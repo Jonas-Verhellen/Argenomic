@@ -1,6 +1,6 @@
 <div align="center">    
  
-# Quality-Diversity Optimisation for Molecular Design
+# Quality-Diversity Optimisation for Molecular Design (GB-EPI)
    ![Logo](/data/figures/logo.png "Logo")
 
 </div>
